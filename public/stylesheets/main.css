@@ -1,0 +1,102 @@
+.thumbnail img {
+    width: 100%;
+}
+
+.thumbnail {
+    padding: 0;
+
+}
+
+.thumbnail .caption-full {
+    padding: 12px;
+}
+
+#delete-form {
+    display: inline;
+}
+
+.container {
+    padding-top: 1%;
+}
+
+.delete-form {
+    display: inline;
+}
+
+#access_header {
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+}
+
+#main_container {
+    text-align: center;
+}
+
+.back_btn {
+    text-align: center;
+}
+
+#comment_text {
+    padding-top: 5px;
+    padding-bottom: 0px;
+}
+
+#edit_del_btns {
+    padding-bottom: 5px;
+}
+
+.text_right {
+    float: right;
+    vertical-align: middle;
+}
+
+.col_centered{
+    float: none;
+    margin: 0 auto;
+    width: 300px;
+}
+
+.well-lg {
+    margin-bottom: 100px;
+}
+
+.well-sm {
+    margin-bottom: 10px;
+}
+
+.profile_header {
+    text-align: center;
+}
+
+#profile_well {
+    height: 400px;
+
+}
+
+#profile_thumbnail {
+    width: 65%;
+    margin: auto auto;
+    padding-top: 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+#camp_well {
+    padding-top: 0;
+}
+
+#camp_thumbnail {
+    padding-bottom: 40px;
+}
+
+#profile_hr {
+    padding: 0px;
+    margin: 0px;    
+}

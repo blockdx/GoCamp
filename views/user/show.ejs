@@ -1,0 +1,51 @@
+<% include ../partials/header %>
+
+<div class="row">
+    <div class="col-sm-3 col-md-2 col-sm-push-5 col-md-push-4 col-sm-offset-2 col-md-offset-3">
+        <div id="profile_well" class="well well-sm">
+            <h3 class="profile_header"><%= user.username %>'s profile</h3>
+            <div id="profile_thumbnail" class="thumbnail">
+                <img id="avatar" src="<%= user.avatar %>" alt="user profile image">
+            </div>
+            <br>
+            <div class="caption profile_header"><em><%= user.bio %></em></div>
+            <br>
+            <div class="caption profile_header"><%= user.firstName %>  <%= user.lastName %></div>
+            <div class="caption profile_header"><%= user.email %></div>
+            <div class="caption profile_header"><%= user.campCount %> Campgrounds submitted</div>
+            <div class="caption profile_header"><%= user.commentCount %> Comments submitted</div>
+            <br>
+            <% if(currentUser && user.id === currentUser.id || currentUser && currentUser.isAdmin) { %>
+                <div class="text-center"><a class="btn btn-xs btn-warning btn-block" href="/user/<%= user._id %>/edit">Edit profile</a></div>
+            <% } %>
+        </div>
+        <br>
+        <div id="profile_well" class="well well-sm">
+            <h4 class="profile_header">Recent comments</h4>
+            <hr id="profile_hr">
+        </div>
+    </div>
+
+    <div class="col-sm-5 col-md-4 col-sm-pull-3 col-md-pull-2">
+        <div id="camp_well" class="well">
+            <h3 class="caption profile_header">Submitted Campgrounds</h3>
+                <% campgrounds.forEach(function(campground) { %>
+                <ul class="thumbnail">
+                    <li>
+                        <h4 class="profile_header"><a href="/campgrounds/<%= campground.id %>"> <%= campground.name %> </a></h4>
+                    </li>
+                    <li id="camp_thumbnail">
+                        <a href="/campgrounds/<%= campground.id %>"><img class="image-responsive" src="<%= campground.image %>"></img></a>
+                        <span class="caption pull-left"><em>Submitted <%= moment(campground.createdAt).fromNow() %></em></span>
+                        <span class="caption pull-right"><em><%= campground.commentCount %> comments</em></span>
+                    </li>
+                    <hr id="profile_hr">
+              </ul>
+                <% }) %>
+
+        </div>
+    </div>  
+    
+</div>
+
+<% include ../partials/footer %>
