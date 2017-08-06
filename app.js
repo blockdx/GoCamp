@@ -17,7 +17,7 @@ var commentRoutes      = require("./routes/comments"),
     indexRoutes        = require("./routes/index"),
     userRoutes         = require("./routes/user");
 
-var promise = mongoose.connect('mongodb://localhost/go_camp', {
+var promise = mongoose.connect('mongodb://jim:gocampadmin@ds133231.mlab.com:33231/gocamp', {
   useMongoClient: true,
 });
 app.use(bodyParser.urlencoded({extended: true}));
