@@ -3,7 +3,8 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>GoCamp</title>
-        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+        <!--<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>-->
+        <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="/stylesheets/main.css"></link>
     </head>
     <body>
@@ -25,7 +26,16 @@
                 <li class="<%= typeof page !== 'undefined' && page === 'campgrounds' ? 'active' : '' %>"><a href="/campgrounds">Campgrounds</a></li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
-                  <% if(!currentUser){ %>
+                  <li>
+                      <form class="navbar-form <%= typeof page !== 'undefined' && (page === 'login' || page === "register") ? 'hidden' : '' %>" action="/campgrounds" method="GET">
+                          <div class="form-group">
+                              <input class="form-control" type="text" name="search" placeholder="Campground search...">
+                                                                      
+                          </div>
+                          <input type="submit" value="Search" class="btn btn-default"> 
+                      </form>                                  
+                  </li>                  
+                  <% if(!currentUser) { %>                    
                       <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Login</a></li>
                       <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Sign Up</a></li>
                   <% } else { %>
@@ -33,7 +43,7 @@
                           <a href="/user/<%=currentUser._id %>">Signed in as <%= currentUser.username %></a>
                       </li>
                       <li><a href="/logout">Logout</a></li>
-                  <% } %>
+                    <% } %>
               </ul>
             </div>
         </div>

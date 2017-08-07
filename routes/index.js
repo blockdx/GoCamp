@@ -16,12 +16,12 @@ router.get("/register", function(req, res) {
 //register
 router.post("/register", function(req, res) {
     var newUser = new User({
-        username: req.body.username,
+        username: req.body.username.toLowerCase(),
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
         avatar: req.body.avatar
-        });
+    });
     if (req.body.adminCode === process.env.ADMINCODE) {
         newUser.isAdmin = true;
     }
@@ -161,6 +161,7 @@ router.post('/reset/:token', function(req, res) {
 });
 
 router.post('/login', function(req, res, next) {
+  req.body.username = req.body.username.toLowerCase();
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err); }
     if (!user) { req.flash("error", "Username or password is incorrect"); return res.redirect('/login'); }

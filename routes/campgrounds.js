@@ -7,14 +7,26 @@ var express = require("express"),
     geocoder = require('geocoder');
     
 router.get("/", function(req, res) {
-    Campground.find({}, function (err, allCampgrounds) {
-        if (err) { 
-            console.log(err);
-        }
-        else {
-            res.render("campgrounds/index", {campgrounds: allCampgrounds, currentUser: req.user, page: "campgrounds"});
-        }
-    });
+    if (req.query.search) {
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        Campground.find({name: regex}, function (err, allCampgrounds) {
+            if (err) { 
+                console.log(err);
+            }
+            else {
+                res.render("campgrounds/index", {campgrounds: allCampgrounds, currentUser: req.user, page: "campgrounds"});
+            }
+        });
+    } else {
+        Campground.find({}, function (err, allCampgrounds) {
+            if (err) { 
+                console.log(err);
+            }
+            else {
+                res.render("campgrounds/index", {campgrounds: allCampgrounds, currentUser: req.user, page: "campgrounds"});
+            }
+        });
+    }
 });
 //post request for new
 router.post("/", middleware.isLoggedIn, function(req, res) {
@@ -115,5 +127,10 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(req, res) {
        //eval(require("locus"));
     });                   
 });
+
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = router;

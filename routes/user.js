@@ -12,14 +12,14 @@ router.get("/:id", function(req, res) {
            req.flash("error", err.message);
            res.redirect("/");
        }
-       var comments = {};
+       var campgrounds = [];
        Campground.find().where('author.id').equals(foundUser._id).exec(function (err, foundCampgrounds) {
            if (err) {
                console.log(err);
            }
            foundUser.campCount = Object.keys(foundCampgrounds).length;
            foundUser.save();
-           res.render("user/show", {user: foundUser, page: "user", campgrounds: foundCampgrounds});
+           campgrounds = foundCampgrounds;
        });
        Comment.find().where('author.id').equals(foundUser._id).exec(function (err, foundComments) {
            if (err) {
@@ -27,8 +27,10 @@ router.get("/:id", function(req, res) {
            }
            foundUser.commentCount = Object.keys(foundComments).length;
            foundUser.save();
-           comments = foundComments;
-           console.log(comments);
+           if (Object.keys(foundComments).length >= 5) {
+               foundComments.slice(Math.max(Object.keys(foundComments).length - 5, 1))
+           }
+           res.render("user/show", {user: foundUser, page: "user", campgrounds: campgrounds, comments: foundComments});
        });
    });
 });
