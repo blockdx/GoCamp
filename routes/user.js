@@ -21,6 +21,7 @@ router.get("/:id", function(req, res) {
            foundUser.save();
            campgrounds = foundCampgrounds;
        });
+       Campground.find({})
        Comment.find().where('author.id').equals(foundUser._id).exec(function (err, foundComments) {
            if (err) {
                console.log(err);

@@ -19,7 +19,14 @@
                 </div>
                 <div class="form-group">
                     <label for="image">Image URL</label>
-                    <input class="form-control" type="text" name="image" value="<%= campground.image %>">
+                    <input id="1" style="" class="form-control" type="text" name="image1" value="<%= campground.image1 %>">
+                    <input id="2" style="display: none" class="form-control" type="text" name="image2" value="<%= campground.image2 %>">
+                    <input id="3" style="display: none" class="form-control" type="text" name="image3" value="<%= campground.image3 %>">
+                    <div class="btn-group">
+                        <button id="b1" onclick="changeTo1()" type="button" name="image1" class="btn btn-primary btn-xs">Image 1</button>
+                        <button id="b2" onclick="changeTo2()" type="button" name="image2" class="btn btn-primary btn-xs">Image 2</button>
+                        <button id="b3" onclick="changeTo3()" type="button" name="image3" class="btn btn-primary btn-xs">Image 3</button>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
@@ -35,5 +42,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    function changeTo1() {
+        document.getElementById("1").style = "";
+        document.getElementById("2").style = "display:none";
+        document.getElementById("3").style = "display:none";
+    }
+        function changeTo2() {
+        document.getElementById("1").style = "display:none";
+        document.getElementById("2").style = "";
+        document.getElementById("3").style = "display:none";
+    }
+        function changeTo3() {
+        document.getElementById("1").style = "display:none";
+        document.getElementById("2").style = "display:none";
+        document.getElementById("3").style = "";
+    }
+</script>
 
 <% include ../partials/footer %>

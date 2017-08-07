@@ -4,9 +4,9 @@
     <div class="row">
         <div class="col-md-3">
             <div class="list-group">
-                <li class="list-group-item active">Info 1</li> 
-                <li class="list-group-item">Info 2</li>
-                <li class="list-group-item">Info 3</li>
+                <li id="1" class="list-group-item">Image 1</li> 
+                <li id="2" class="list-group-item">Image 2</li>
+                <li id="3" class="list-group-item">Image 3</li>
             </div>
             <div id="map">
                 
@@ -14,13 +14,13 @@
         </div>
         <div class="col-md-9">
             <div class="thumbnail">
-                <img class="image-responsive" src="<%=campground.image%>">
+                <img id="image" class="image-responsive" src="<%=campground.image1%>">
                 <div class="caption-full">
                     <h4 class="pull-right">$<%=campground.price%>/night</h4>
                     <h4><a><%= campground.name %></a></h4>
                     <p><%= campground.description %></p>
                     <p>
-                        <em>Submitted by <a href="/user/<%= campground.author.id %>"><%= campground.author.username %></a>, <%= moment(campground.createdAt).fromNow() %></em>
+                        <em>Submitted <%= moment(campground.createdAt).fromNow() %> by  <a href="/user/<%= campground.author.id %>"><%= campground.author.username %></a></em>
                     </p>
                     <% if(currentUser && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
                         <a class="btn btn-xs btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
@@ -65,31 +65,58 @@
 </div>
 
 <script>
-  function initMap() {
-    var lat = <%= campground.lat %>;
-    var lng = <%= campground.lng %>;
-    var center = {lat: lat, lng: lng };
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 8,
-        center: center,
-        scrollwheel: false
+
+    $(document).ready(function() {
+        $("#1").click(function() {
+            $("#1").addClass("active");
+            $("#2").removeClass("active");
+            $("#3").removeClass("active");
+            $("#image").attr("src", "<%=campground.image1%>");
+        });
+
+        $("#2").click(function(){
+            $("#1").removeClass("active");
+            $("#2").addClass("active");
+            $("#3").removeClass("active");
+            $("#image").attr("src", "<%=campground.image2%>");
+        });
+        
+        $("#3").click(function(){
+            $("#1").removeClass("active");
+            $("#2").removeClass("active");
+            $("#3").addClass("active");
+            $("#image").attr("src", "<%=campground.image3%>");
+        });
     });
-    var contentString = `
-      <strong><%= campground.name %><br />
-      <%= campground.location %></strong>
-      <p><%= campground.description %></p>
-    `
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    });
-    var marker = new google.maps.Marker({
-        position: center,
-        map: map
-    });
-    marker.addListener('click', function() {
-      infowindow.open(map, marker);
-    });
-  }
+    
+    function initMap() {
+        var lat = <%= campground.lat %>;
+        var lng = <%= campground.lng %>;
+        var center = {lat: lat, lng: lng };
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 8,
+            center: center,
+            scrollwheel: false
+        });
+        var contentString = `
+          <strong><%= campground.name %><br />
+          <%= campground.location %></strong>
+          <p><%= campground.description %></p>
+        `
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+        var marker = new google.maps.Marker({
+            position: center,
+            map: map
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      }
+
+
+
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA27gQ4q4tfyFyLAtlJ671MpooGsk-9e6I&callback=initMap"></script>
 

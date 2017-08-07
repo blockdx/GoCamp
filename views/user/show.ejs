@@ -42,7 +42,7 @@
                         <h4 class="profile_header"><a href="/campgrounds/<%= campground.id %>"> <%= campground.name %> </a></h4>
                     </li>
                     <li id="camp_thumbnail">
-                        <a href="/campgrounds/<%= campground.id %>"><img class="image-responsive" src="<%= campground.image %>"></img></a>
+                        <a href="/campgrounds/<%= campground.id %>"><img class="image-responsive" src="<%= campground.image1 %>"></img></a>
                         <span class="caption pull-left"><em>Submitted <%= moment(campground.createdAt).fromNow() %></em></span>
                         <span class="caption pull-right"><em><%= campground.commentCount %> comments</em></span>
                     </li>

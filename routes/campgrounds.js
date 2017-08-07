@@ -31,7 +31,18 @@ router.get("/", function(req, res) {
 //post request for new
 router.post("/", middleware.isLoggedIn, function(req, res) {
     var name = req.body.name;
-    var image = req.body.image;
+    var image1 = req.body.image1;
+    var image2, image3;
+    if (req.body.image2 === "") {
+        image2 = image1
+    } else {
+        image2 = req.body.image2;
+    }
+    if (req.body.image3 === "") {
+        var image3 = image2 
+    } else {
+        image3 = req.body.image3;
+    }
     var description = req.body.description;
     var price = req.body.price;
     var author = {
@@ -43,7 +54,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
         var lat = data.results[0].geometry.location.lat;
         var lng = data.results[0].geometry.location.lng;
         var location = data.results[0].formatted_address;
-        var newCampground = {name: name, image: image, description: description, author: author, price: price, location: location, lat: lat, lng: lng};
+        var newCampground = {name: name, image1: image1, image2: image2, image3: image3, description: description, author: author, price: price, location: location, lat: lat, lng: lng};
         Campground.create(newCampground, function (err, newlyCreated) {
             if (err) { 
                 console.log(err);
@@ -93,7 +104,19 @@ router.put("/:id", middleware.checkCampgroundOwnership, function(req, res) {
     var lat = data.results[0].geometry.location.lat;
     var lng = data.results[0].geometry.location.lng;
     var location = data.results[0].formatted_address;
-    var newData = {name: req.body.name, image: req.body.image, description: req.body.description, price: req.body.price, location: location, lat: lat, lng: lng};
+    var image1 = req.body.image1;
+    var image2, image3;
+    if (req.body.image2 === "") {
+        image2 = image1
+    } else {
+        image2 = req.body.image2;
+    }
+    if (req.body.image3 === "") {
+        image3 = image2 
+    } else {
+        image3 = req.body.image3;
+    }
+    var newData = {name: req.body.name, image1: image1, image2: image2, image3: image3, description: req.body.description, price: req.body.price, location: location, lat: lat, lng: lng};
     Campground.findByIdAndUpdate(req.params.id, {$set: newData}, function(err, campground){
         if(err){
             req.flash("error", err.message);
