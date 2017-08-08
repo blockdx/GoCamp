@@ -10,7 +10,6 @@
             <br>
             <div class="caption profile_header"><em><%= user.bio %></em></div>
             <div class="caption profile_header"><%= user.firstName %>  <%= user.lastName %></div>
-            <div class="caption profile_header"><%= user.email %></div>
             <div class="caption profile_header"><%= user.campCount %> Campgrounds submitted</div>
             <div class="caption profile_header"><%= user.commentCount %> Comments submitted</div>
             <br>
@@ -23,11 +22,11 @@
             <h4 class="profile_header">Recent comments</h4>
             <hr id="profile_hr">
             <div class="well well-sm">
-                <% comments.forEach(function(comment) { %>
-                    <span> <%= comment.text %></span>
+                <% for (var i = 0; i < comments.length; i++) { %>
+                    <span> <%= comments[i].text %></span>
                     <br>
-                    <span class="caption pull-right"><em><%= moment(comment.createdAt).fromNow() %></em></span>
-                <% }); %>
+                    <span class="caption pull-right"><em><%= moment(comments[i].createdAt).fromNow() %></em></span>
+                <% } %>
             </div>
             
         </div>

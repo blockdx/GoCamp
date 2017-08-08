@@ -13,6 +13,10 @@ router.get("/:id", function(req, res) {
            res.redirect("/");
        }
        var campgrounds = [];
+       var comments = [];
+       var data = {};
+    //   var commentsWithNames = [];
+    //   var newComment;
        Campground.find().where('author.id').equals(foundUser._id).exec(function (err, foundCampgrounds) {
            if (err) {
                console.log(err);
@@ -21,17 +25,39 @@ router.get("/:id", function(req, res) {
            foundUser.save();
            campgrounds = foundCampgrounds;
        });
-       Campground.find({})
        Comment.find().where('author.id').equals(foundUser._id).exec(function (err, foundComments) {
            if (err) {
                console.log(err);
            }
            foundUser.commentCount = Object.keys(foundComments).length;
            foundUser.save();
-           if (Object.keys(foundComments).length >= 5) {
+           if (Object.keys(foundComments).length >=5) {
                foundComments.slice(Math.max(Object.keys(foundComments).length - 5, 1))
            }
-           res.render("user/show", {user: foundUser, page: "user", campgrounds: campgrounds, comments: foundComments});
+           comments = foundComments;
+        //   comments.forEach(function(usersComment) {
+        //       Campground.find({}, function (err, allCampgrounds) {
+        //          allCampgrounds.forEach(function(camp) {
+        //              camp.comments.forEach(function(comment) {
+        //                  if (usersComment.id == comment) {
+        //                      newComment = {
+        //                          name: camp.name,
+        //                          id: comment,
+        //                          campId: camp.id,
+        //                          text: usersComment.text,  
+        //                          date: usersComment.createdAt
+        //                      };
+        //                      commentsWithNames.push(newComment);
+        //                  }
+        //              });
+        //          });
+        //       });
+        //   });
+        // console.log(commentsWithNames);
+           //eval(require("locus"));
+           
+           res.render("user/show", {user: foundUser, page: "user", campgrounds: campgrounds, comments: comments});
+
        });
    });
 });
