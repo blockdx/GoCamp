@@ -10,13 +10,12 @@
             </p>
         </div>
     </header>
-    
-    <div class="row text-center" style="display:flex; flex-wrap: wrap;">
-            <% if (campgrounds.length < 1) { %>
-                <div class="col_centered">
+            <% if (Object.keys(campgrounds).length < 1) { %>
+                <div id="noCamps">
                     <h3>No campgrounds to show!</h3>
                 </div>
             <% } else { %>
+    <div class="row text-center" style="display:flex; flex-wrap: wrap;">
             <% campgrounds.forEach( function (campground) { %>
             <div class="col-md-3 col-sm-6">
                     <div class="thumbnail">

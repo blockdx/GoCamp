@@ -5,7 +5,7 @@
         <div id="profile_well" class="well well-sm">
             <h3 class="profile_header"><%= user.username %>'s profile</h3>
             <div id="profile_thumbnail" class="thumbnail">
-                <img id="avatar" src="<%= user.avatar %>" alt="user profile image">
+                <img id="avatar" src="<%= user.avatar %>">
             </div>
             <br>
             <div class="caption profile_header"><em><%= user.bio %></em></div>
@@ -38,20 +38,25 @@
     <div class="col-sm-5 col-sm-pull-3 col-md-4 col-md-pull-2">
         <div id="camp_well" class="well">
             <h3 class="caption profile_header">Submitted Campgrounds</h3>
-                <% campgrounds.forEach(function(campground) { %>
-                <ul class="thumbnail">
-                    <li>
-                        <h4 class="profile_header"><a href="/campgrounds/<%= campground.id %>"> <%= campground.name %> </a></h4>
-                    </li>
-                    <li id="camp_thumbnail">
-                        <a href="/campgrounds/<%= campground.id %>"><img class="image-responsive" src="<%= campground.image1 %>"></img></a>
-                        <span class="caption pull-left"><em>Submitted <%= moment(campground.createdAt).fromNow() %></em></span>
-                        <span class="caption pull-right"><em><%= campground.commentCount %> comments</em></span>
-                    </li>
-                    <hr>
-              </ul>
-                <% }) %>
-
+                <% if (Object.keys(campgrounds).length < 1) { %>
+                    <div id="noCamps">
+                        <h4>No campgrounds to show!</h4>
+                    </div>
+                <% } else { %>
+                    <% campgrounds.forEach(function(campground) { %>
+                    <ul class="thumbnail">
+                        <li>
+                            <h4 class="profile_header"><a href="/campgrounds/<%= campground.id %>"> <%= campground.name %> </a></h4>
+                        </li>
+                        <li id="camp_thumbnail">
+                            <a href="/campgrounds/<%= campground.id %>"><img class="image-responsive" src="<%= campground.image1 %>"></img></a>
+                            <span class="caption pull-left"><em>Submitted <%= moment(campground.createdAt).fromNow() %></em></span>
+                            <span class="caption pull-right"><em><%= campground.commentCount %> comments</em></span>
+                        </li>
+                        <hr>
+                  </ul>
+                    <% }) %>
+                <% } %>
         </div>
     </div>  
     
