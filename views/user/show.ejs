@@ -18,17 +18,19 @@
             <% } %>
         </div>
         <br>
-        <div id="profile_well" class="well well-sm">
+        <div id="comments_well" class="well well-sm">
             <h4 class="profile_header">Recent comments</h4>
-            <hr id="profile_hr">
-            <div class="well well-sm">
-                <% for (var i = 0; i < comments.length; i++) { %>
-                    <span> <%= comments[i].text %></span>
+            <hr class="profile_hr">
+
+            <% comments.forEach(function(comment) { %>
+                <div class="well well-sm">
+                    <span> <%= comment.text %></span>
                     <br>
-                    <span class="caption pull-right"><em><%= moment(comments[i].createdAt).fromNow() %></em></span>
-                <% } %>
-            </div>
-            
+                    <a href="/campgrounds/<%=comment.campId%>"><span class="pull-left"><%=comment.campName%></span></a>
+                    <span class="caption pull-right"><em><%= moment(comment.createdAt).fromNow() %></em></span>
+                    <hr class="profile_hr">
+                </div>
+            <% }); %>          
         </div>
     </div>
 
@@ -45,7 +47,7 @@
                         <span class="caption pull-left"><em>Submitted <%= moment(campground.createdAt).fromNow() %></em></span>
                         <span class="caption pull-right"><em><%= campground.commentCount %> comments</em></span>
                     </li>
-                    <hr id="profile_hr">
+                    <hr>
               </ul>
                 <% }) %>
 

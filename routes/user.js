@@ -13,10 +13,6 @@ router.get("/:id", function(req, res) {
            res.redirect("/");
        }
        var campgrounds = [];
-       var comments = [];
-       var data = {};
-    //   var commentsWithNames = [];
-    //   var newComment;
        Campground.find().where('author.id').equals(foundUser._id).exec(function (err, foundCampgrounds) {
            if (err) {
                console.log(err);
@@ -34,29 +30,7 @@ router.get("/:id", function(req, res) {
            if (Object.keys(foundComments).length >=5) {
                foundComments.slice(Math.max(Object.keys(foundComments).length - 5, 1))
            }
-           comments = foundComments;
-        //   comments.forEach(function(usersComment) {
-        //       Campground.find({}, function (err, allCampgrounds) {
-        //          allCampgrounds.forEach(function(camp) {
-        //              camp.comments.forEach(function(comment) {
-        //                  if (usersComment.id == comment) {
-        //                      newComment = {
-        //                          name: camp.name,
-        //                          id: comment,
-        //                          campId: camp.id,
-        //                          text: usersComment.text,  
-        //                          date: usersComment.createdAt
-        //                      };
-        //                      commentsWithNames.push(newComment);
-        //                  }
-        //              });
-        //          });
-        //       });
-        //     });
-        // console.log(commentsWithNames);
-           //eval(require("locus"));
-           
-           res.render("user/show", {user: foundUser, page: "user", campgrounds: campgrounds, comments: comments});
+           res.render("user/show", {user: foundUser, page: "user", campgrounds: campgrounds, comments: foundComments});
 
        });
    });

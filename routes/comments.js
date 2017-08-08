@@ -29,6 +29,8 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
                 //add username and id to comment and save
                     comment.author.id = req.user._id;
                     comment.author.username = req.user.username;
+                    comment.campId = campground.id;
+                    comment.campName = campground.name;
                     comment.save();
                     req.user.commentCount++;
                     req.user.save();

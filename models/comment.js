@@ -2,6 +2,8 @@ var mongoose      = require("mongoose"),
     commentSchema = mongoose.Schema({
         text: String,
         createdAt: {type: Date, default: Date.now},
+        campName: String,
+        campId: String,
         author: {
             id: {
                 type: mongoose.Schema.Types.ObjectId,

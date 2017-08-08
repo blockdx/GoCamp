@@ -78,6 +78,9 @@
 
 }
 
+#comments_well {
+    height: 600px;
+}
 #profile_thumbnail {
     width: 65%;
     margin: auto auto;
@@ -96,9 +99,9 @@ ul {
     padding-bottom: 40px;
 }
 
-#profile_hr {
+.profile_hr {
     padding: 0px;
-    margin: 0px;    
+    margin: 5px;    
 }
 
 #avatar {
