@@ -28,7 +28,7 @@ app.use(flash());
 app.locals.moment = require("moment");
 //PASSPORT
 app.use(require("express-session")({
-    secret: "Once again, Mr. Big Boy is the best cat.",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false
 }));
